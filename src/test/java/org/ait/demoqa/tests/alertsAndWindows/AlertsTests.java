@@ -1,6 +1,6 @@
 package org.ait.demoqa.tests.alertsAndWindows;
 
-import org.ait.demoqa.pages.alertsAndWindows.AlertsPage;
+import org.ait.demoqa.pages.alertsFrameWindows.AlertsPage;
 import org.ait.demoqa.pages.HomePage;
 import org.ait.demoqa.pages.SidePanel;
 import org.ait.demoqa.tests.TestBase;

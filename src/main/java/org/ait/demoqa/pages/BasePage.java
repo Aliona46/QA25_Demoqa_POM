@@ -1,8 +1,10 @@
 package org.ait.demoqa.pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +16,7 @@ import java.time.Duration;
 public abstract class BasePage {
 
    public WebDriver driver;
+   JavascriptExecutor js;
    public void pause(int millis) {
        try {
            Thread.sleep(millis);
@@ -26,6 +29,7 @@ public abstract class BasePage {
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
+        js = (JavascriptExecutor) driver;
     }
 
     public void click(WebElement element) {
@@ -42,7 +46,6 @@ public abstract class BasePage {
     //!!!Bonus method, chtoby proscrollit' stranizu
     public void clickWithJSExecutor(WebElement element, int x, int y) {
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(" + x + "," + y + ")");
         element.click();
     }
@@ -60,7 +63,8 @@ public abstract class BasePage {
     }
 
     public boolean isTextPresent(WebElement element,String book) {
-        return element.getText().contains(book);
+
+       return element.getText().contains(book);
     }
 
     public void verifyLinks(String linkUrl) {
@@ -80,5 +84,35 @@ public abstract class BasePage {
             System.out.println(linkUrl + " - "+ ex.getMessage() + " is a broken link");
         }
 
+    }
+
+    public void hideIframes() {
+        hideAd();
+        hideFooter();
+    }
+
+    public void hideFooter() {
+        js.executeScript("document.querySelector('footer').style.display='none';");
+    }
+
+    public void hideAd() {
+       js.executeScript("document.getElementById('adplus-anchor').style.display='none';");
+    }
+
+    public void clickWithRectangle(WebElement element, int x, int y) {
+        Rectangle rectangle = element.getRect();
+
+        int xOffset = rectangle.getWidth() / x;
+        int yOffset = rectangle.getHeight() / y;
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+        actions.moveByOffset(-xOffset, -yOffset).click().perform();
+
+    }
+
+    public String getValueAttribute(WebElement element, String name) {
+
+        return element.getAttribute(name);
     }
 }

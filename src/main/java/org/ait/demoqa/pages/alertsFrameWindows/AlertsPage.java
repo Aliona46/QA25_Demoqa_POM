@@ -1,4 +1,4 @@
-package org.ait.demoqa.pages.alertsAndWindows;
+package org.ait.demoqa.pages.alertsFrameWindows;
 
 import org.ait.demoqa.pages.BasePage;
 import org.openqa.selenium.NoAlertPresentException;
