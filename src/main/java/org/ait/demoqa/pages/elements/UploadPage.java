@@ -66,8 +66,8 @@ public class UploadPage extends BasePage {
         Dimension dimension = driver.manage().window().getSize();
         System.out.println("Dimension x and y: "+ dimension.getWidth()+ " "+ dimension.getHeight());
         //get point of file location
-        int x = dimension.getWidth()/5;
-        int y = dimension.getHeight()/4;
+        int x = dimension.getWidth()/3;
+        int y = dimension.getHeight()/2;
         // move mouse point with coordinates
         robot.mouseMove(x,y);
         pause(1000);
